@@ -3,7 +3,7 @@
 //  API-Sandbox
 //
 //  Created by Dion Larson on 6/26/16.
-//  Copyright © 2016 Make School. All rights reserved.
+//  Copyright © 2016 Make School. All rights reserved
 //
 
 import Foundation
@@ -22,11 +22,11 @@ internal func exerciseOne() {
     // Enter SwiftyJSON!
     // userData now contains a JSON object representing all the data in the JSON file.
     // This JSON file contains the same data as the tutorial example.
-    let userData = JSON(data: jsonData)
+    let userData = JSON(data: jsonData) //  loads the jsonData into a JSON object called userData
     
     // Alright, now we have a JSON object from SwiftyJSON containing the user data!
     // Let's save the user's first name to a constant!
-    let firstName = userData["results"][0]["name"]["first"].stringValue
+    let firstName = userData["results"][0]["name"]["first"].stringValue //navigates through the JSON object to get the first name as a string
     // Do you see what we did there? We navigated down the JSON heirarchy, asked for "results",
     // then the first dictionary value of that array, then the dictionary stored in "name",
     // then the value stored in "first". We  then told it that we wanted the value as a string.
@@ -41,6 +41,16 @@ internal func exerciseOne() {
      
      */
     
+    let lastName = userData["results"][0]["name"]["last"].stringValue
+    
+    let street = userData["results"][0]["location"]["street"].stringValue
+    
+    let city = userData["results"][0]["location"]["city"].stringValue
+    let state = userData["results"][0]["location"]["state"].stringValue
+    let postCode = userData["results"][0]["location"]["postcode"].stringValue
+   
+    
+    print(firstName + " " + lastName + " lives at " + street + " in " + " " + city + " " + state + " " + postCode)
     
     
     
@@ -66,9 +76,10 @@ internal func exerciseTwo() {
     let topMovieData = moviesData["feed"]["entry"][0]
     let topMovie = Movie(json: topMovieData)
     
+    
     // Uncomment this print statement when you are ready to check your code!
     
-//    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate). You can view it on iTunes here: \(topMovie.link)")
+    print("The top movie is \(topMovie.name) by \(topMovie.rightsOwner). It costs $\(topMovie.price) and was released on \(topMovie.releaseDate) . You can view it on iTunes here: \(topMovie.link)")
 }
 
 internal func exerciseThree() {
@@ -95,8 +106,18 @@ internal func exerciseThree() {
      */
     var allMovies: [Movie] = []
     
+    //parse/create movie struct
+    for movie in allMoviesData{
+        let currentMovie = Movie(json: movie)
+        //add struct into movies array
+        allMovies.append(currentMovie)
+    }
     
-    
+    for movie in allMovies {
+        if(movie.rightsOwner.containsString("Disney")){
+            print(movie.name)
+        }
+    }
     
     /*
      
@@ -105,7 +126,7 @@ internal func exerciseThree() {
      contains the `String` "Disney". Iterate over all the values in `allMovies` to check!
      
      */
-//    print("The following movies are Disney movies:")
+print("The following movies are Disney movies:")
     
     
     
